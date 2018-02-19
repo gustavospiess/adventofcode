@@ -13,9 +13,23 @@ class Node():
 		weight = int(split.pop(0)[1:-1])
 		return Node(name, sons, weight)
 
-class NodePull():
+	def __str__(self):
+		return self.name + '(' + str(self.weight) + ')'
+
+class NodeTree():
 	def __init__(self):
 		self.headPull = []
+
+	def printTree(self):
+		def p(node, indent = "", last = 1, head = 1):
+			prefix = "\---" if last or head else "+---"		
+			print(indent + prefix + str(node))
+			indent += "    " if last else "|   "
+			for son in node.sons:
+				p(son, indent = indent, last = (son == node.sons[-1]), head = 0)
+
+		for node in pull.headPull:
+			p(node)
 
 	def allNodes(self, condition = None):
 		nodes = []
@@ -25,11 +39,8 @@ class NodePull():
 				for sub in node.sons:
 					subs += subNodes(sub)
 			return subs
-
-
 		for headNode in self.headPull:
 			nodes += subNodes(headNode)
-
 		if condition:
 			return [node for node in nodes if condition(node)]
 		else:
@@ -64,19 +75,10 @@ class NodePull():
 		if not newNode.father:
 			self.headPull.append(newNode)
 		
-pull = NodePull()
+pull = NodeTree()
 
 with open("data.txt", "r") as data:
 	for line in data:
 		pull.append(Node.nodeFromLine(line))
 
-def p(node, indent):
-	if type(node) == str:
-		print(indent + node + "(str)")
-		return
-	print(indent + node.name)
-	for son in node.sons:
-		p(son, indent + "	")
-
-for node in pull.headPull:
-	p(node, "")
+pull.printTree()
