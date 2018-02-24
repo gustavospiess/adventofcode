@@ -26,3 +26,5 @@ file = "data.txt"
 with open(file, "r") as data:
   for captcha in data:
     part1(captcha)
+    print("-")
+    part2(captcha)
