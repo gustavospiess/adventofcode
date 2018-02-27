@@ -15,13 +15,13 @@ class Node():
     return Node(name, sons, weight)
 
   def __str__(self):
-    return self.name + '(' + str(self.weight) + ', ' + str(self.totalWeight) + ')'
+    return self.name + '(' + str(self.weight) + ')'
 
 
 def getPull():
   pull = list()
 
-  with open("data.txt", "r") as data:
+  with open("day7/src/data.txt", "r") as data:
     for line in data:
       pull.append(Node.nodeFromLine(line))
 
@@ -73,30 +73,6 @@ def part2():
     if (pull[i].name == first.name):
       pull[i] = first
 
-  '''groupList = [[son for son in node.sons] for node in pull if node.sons]
-
-  for group in groupList:
-    for i in range(len(group)):
-      for node in pull:
-        if node.name == group[i]:
-          group[i] = node
-          break         
-
-  for group in groupList:
-    if len(group) > 2:
-      balance = [fnode.totalWeight 
-                  for fnode in group 
-                    for snode in group 
-                      if  fnode != snode and 
-                          fnode.totalWeight == snode.totalWeight][0]
-      diferenceNodes = [node for node in group if node.totalWeight != balance]
-
-      if (diferenceNodes):
-        correctValue = diferenceNodes[0].weight + (diferenceNodes[0].totalWeight - balance)
-        if (correctValue):
-          print("the wrong node is: " + str(diferenceNodes[0]))
-          print("the correct value is: " + str(correctValue))'''
-
   def calcDiference(node):
     message = ""
     sons = [son for son in pull if son.name in node.sons]
@@ -117,7 +93,8 @@ def part2():
         if (correctValue):
           if (message):
             message = message + "\n\n"
-          message = "the wrong node is: " + str(diferenceNodes[0]) + "\nthe correct value is: " + str(correctValue)
+          message = ("the wrong node is: " + str(diferenceNodes[0]) + 
+            "\nthe correct value is: " + str(correctValue))
 
     for son in sons:
       sonMessage = calcDiference(son)
@@ -129,4 +106,5 @@ def part2():
 
   print(calcDiference(first))
 
+print("The head node is " + str(part1()))
 part2()

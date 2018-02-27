@@ -83,7 +83,7 @@ class NodeTree():
     
 pull = NodeTree()
 
-with open("data.txt", "r") as data:
+with open("day7/src/data.txt", "r") as data:
   for line in data:
     pull.append(Node.nodeFromLine(line))
 

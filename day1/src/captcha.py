@@ -22,7 +22,7 @@ def part2(captcha):
     print(counter)
 
 
-file = "data.txt"
+file = "day1/src/data.txt"
 with open(file, "r") as data:
   for captcha in data:
     part1(captcha)
